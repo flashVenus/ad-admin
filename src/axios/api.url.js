@@ -1,7 +1,9 @@
 export default {
-  DOMAIN: 'http://127.0.0.1:8085',
+  // DOMAIN: 'https://www.mxkjdmx.vip',
+  DOMAIN: 'https://www.wxljcee.vip',
   // baseURL: 'http://www.shehua56.com',
-  baseURL: 'http://127.0.0.1:8085',
+  // baseURL: 'https://www.mxkjdmx.vip',
+  baseURL: 'https://www.wxljcee.vip',
 
   util: {
     image: '/util/image.html' // 图片上传
