@@ -15,6 +15,7 @@ module.exports = {
         // target: 'https://www.gssy.club',
         // target: 'http://172.21.165.91:8099',
         target: 'https://www.mxkjdmx.vip',
+        // target: 'http://localhost:8099',
         secure: false,
         changeOrigin: true,
         pathRewrite: {

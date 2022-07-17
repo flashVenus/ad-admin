@@ -49,42 +49,42 @@
           :row-class-name="tableRowClassName"
           :default-expand-all='true'
           style="width: 100%">
-          <el-table-column type="expand">
-            <template slot-scope="props">
-              <el-form label-position="left" inline class="demo-table-expand">
-                <!-- <el-form-item label="总资金">
-                  <span>{{(Number(props.row.userAmt) + Number(props.row.userIndexAmt)).toFixed(2)}}</span>
-                </el-form-item> -->
-                <el-form-item label="融资资金">
-                  <!-- <span>{{ props.row.userAmt}}</span> -->
-                  <el-tag>{{ props.row.userAmt}}</el-tag>
-                </el-form-item>
-                <el-form-item label="融资可用">
-                  <!-- <span>{{ props.row.enableAmt}}</span> -->
-                  <el-tag>{{ props.row.enableAmt}}</el-tag>
-                </el-form-item>
-                <el-form-item label="指数资金">
-                  <!-- <span>{{ props.row.userIndexAmt}}</span> -->
-                  <el-tag>{{ props.row.userIndexAmt}}</el-tag>
-                </el-form-item>
-                <el-form-item label="指数可用">
-                  <!-- <span>{{ props.row.enableIndexAmt}}</span> -->
-                  <el-tag>{{ props.row.enableIndexAmt}}</el-tag>
-                </el-form-item>
-                <el-form-item label="期货资金">
-                  <!-- <span>{{ props.row.userFutAmt}}</span> -->
-                  <el-tag>{{ props.row.userFutAmt}}</el-tag>
-                </el-form-item>
-                <el-form-item label="期货可用">
-                  <!-- <span>{{ props.row.enableFutAmt}}</span> -->
-                  <el-tag>{{ props.row.enableFutAmt}}</el-tag>
-                </el-form-item>
-                <!-- <el-form-item label="注册时间">
-                  <span>{{props.row.regTime | timeFormat}}</span>
-                </el-form-item> -->
-              </el-form>
-            </template>
-          </el-table-column>
+<!--          <el-table-column type="expand">-->
+<!--            <template slot-scope="props">-->
+<!--              <el-form label-position="left" inline class="demo-table-expand">-->
+<!--                &lt;!&ndash; <el-form-item label="总资金">-->
+<!--                  <span>{{(Number(props.row.userAmt) + Number(props.row.userIndexAmt)).toFixed(2)}}</span>-->
+<!--                </el-form-item> &ndash;&gt;-->
+<!--                <el-form-item label="融资资金">-->
+<!--                  &lt;!&ndash; <span>{{ props.row.userAmt}}</span> &ndash;&gt;-->
+<!--                  <el-tag>{{ props.row.userAmt}}</el-tag>-->
+<!--                </el-form-item>-->
+<!--                <el-form-item label="融资可用">-->
+<!--                  &lt;!&ndash; <span>{{ props.row.enableAmt}}</span> &ndash;&gt;-->
+<!--                  <el-tag>{{ props.row.enableAmt}}</el-tag>-->
+<!--                </el-form-item>-->
+<!--                <el-form-item label="指数资金">-->
+<!--                  &lt;!&ndash; <span>{{ props.row.userIndexAmt}}</span> &ndash;&gt;-->
+<!--                  <el-tag>{{ props.row.userIndexAmt}}</el-tag>-->
+<!--                </el-form-item>-->
+<!--                <el-form-item label="指数可用">-->
+<!--                  &lt;!&ndash; <span>{{ props.row.enableIndexAmt}}</span> &ndash;&gt;-->
+<!--                  <el-tag>{{ props.row.enableIndexAmt}}</el-tag>-->
+<!--                </el-form-item>-->
+<!--                <el-form-item label="期货资金">-->
+<!--                  &lt;!&ndash; <span>{{ props.row.userFutAmt}}</span> &ndash;&gt;-->
+<!--                  <el-tag>{{ props.row.userFutAmt}}</el-tag>-->
+<!--                </el-form-item>-->
+<!--                <el-form-item label="期货可用">-->
+<!--                  &lt;!&ndash; <span>{{ props.row.enableFutAmt}}</span> &ndash;&gt;-->
+<!--                  <el-tag>{{ props.row.enableFutAmt}}</el-tag>-->
+<!--                </el-form-item>-->
+<!--                &lt;!&ndash; <el-form-item label="注册时间">-->
+<!--                  <span>{{props.row.regTime | timeFormat}}</span>-->
+<!--                </el-form-item> &ndash;&gt;-->
+<!--              </el-form>-->
+<!--            </template>-->
+<!--          </el-table-column>-->
           <el-table-column
             width="120px"
             prop="agentName"
