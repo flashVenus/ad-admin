@@ -3,6 +3,11 @@ import { post, get } from '@/axios/index'
 
 // var img_url = APIUrl.util.image // 这个就是图片上传的api url
 
+
+
+export function auditUpdate (options) {
+  return post('/admin/position/auditUpdate.do', options)
+}
 // 登录
 export function login (options) {
   return post('/api/admin/login.do', options)

@@ -185,6 +185,16 @@
             </div>
           </template>
         </el-table-column>
+
+        <el-table-column
+          prop="allProfitAndLose"
+          label="审核状态">
+          <template slot-scope="scope">
+            <div class="bounceIn tab-number">
+               {{scope.row.auditStatus == 2 ? '审核通过' : scope.row.auditStatus == 3 ? '已驳回' : scope.row.auditStatus == 0 ? '未审核' : ''}}
+            </div>
+          </template>
+        </el-table-column>
         <!-- <el-table-column
          prop="orderLever"
          label="杠杆倍数">
@@ -226,6 +236,12 @@
           width="180px"
           label="操作">
           <template slot-scope="scope">
+            <el-button type="primary" plain size="small" v-if="scope.row.auditStatus == 0" @click="getshenhe(scope.row.positionSn,2)">
+              审核通过
+            </el-button>
+            <el-button type="primary" plain size="small" v-if="scope.row.auditStatus == 0" @click="getshenhe(scope.row.positionSn,3)">
+              驳回
+            </el-button>
             <el-button v-if="scope.row.isLock == 0" type="primary" plain size="small" @click="positionLock(scope.row)">
               锁仓
             </el-button>
@@ -314,6 +330,19 @@ export default {
     this.getAgentList()
   },
   methods: {
+    async getshenhe(positionSn,val){
+ let opts = {
+        positionSn: positionSn,
+auditStatus:val
+      }
+      let data = await api.auditUpdate(opts)
+       if (data.status === 0) {
+        this.$message.success(data.msg)
+        this.getList()
+      } else {
+        this.$message.error(data.msg)
+      }
+    },
     handleSizeChange (val) {
       this.form.pageSize = val
       this.getList()
