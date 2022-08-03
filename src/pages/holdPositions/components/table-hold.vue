@@ -40,118 +40,98 @@
         <el-button type="primary" @click="onSubmit">查询</el-button>
       </el-form-item>
     </el-form>
-    <el-alert
-      v-if="list.list.length>0 && list.list[0].now_price == 0"
-      style="margin-bottom:10px"
-      title="集合竞价中，'现价'、'浮动盈亏'、'总盈亏'暂不能查看"
-      type="warning"
-      close-text="知道了">
+    <el-alert v-if="list.list.length > 0 && list.list[0].now_price == 0" style="margin-bottom:10px"
+      title="集合竞价中，'现价'、'浮动盈亏'、'总盈亏'暂不能查看" type="warning" close-text="知道了">
     </el-alert>
     <div class="table">
-      <el-table
-        v-loading="loading"
-        :data="list.list"
-        show-summary
-        :summary-method="getSummaries"
-        style="width: 100%">
+      <el-table v-loading="loading" :data="list.list" show-summary :summary-method="getSummaries" style="width: 100%">
         <el-table-column type="expand">
           <template slot-scope="props">
             <el-form label-position="left" inline class="demo-table-expand">
               <el-form-item label="数量/股">
-                <span>{{ props.row.orderNum}}</span>
+                <span>{{ props.row.orderNum }}</span>
               </el-form-item>
               <el-form-item label="总市值">
-                <span>{{ props.row.orderTotalPrice}}</span>
+                <span>{{ props.row.orderTotalPrice }}</span>
               </el-form-item>
               <el-form-item label="杠杆倍数">
-                <span>{{ props.row.orderLever}}</span>
+                <span>{{ props.row.orderLever }}</span>
               </el-form-item>
               <el-form-item label="手续费">
-                <span>{{ props.row.orderFee}}</span>
+                <span>{{ props.row.orderFee }}</span>
               </el-form-item>
               <el-form-item label="印花税">
-                <span>{{ props.row.orderSpread}}</span>
+                <span>{{ props.row.orderSpread }}</span>
               </el-form-item>
               <el-form-item label="留仓费">
-                <span>{{ props.row.orderStayFee}}</span>
+                <span>{{ props.row.orderStayFee }}</span>
               </el-form-item>
               <el-form-item label="留仓天数">
-                <span>{{ props.row.orderStayDays}}</span>
+                <span>{{ props.row.orderStayDays }}</span>
               </el-form-item>
               <el-form-item v-if="props.row.isLock == 1" label="锁定原因">
-                <span>{{ props.row.lockMsg}}</span>
+                <span>{{ props.row.lockMsg }}</span>
               </el-form-item>
               <el-form-item label="买入时间">
-                <span>{{props.row.buyOrderTime | timeFormat}}</span>
+                <span>{{ props.row.buyOrderTime | timeFormat }}</span>
               </el-form-item>
             </el-form>
           </template>
         </el-table-column>
-        <el-table-column
-          width="70px"
-          prop="positionType"
-          label="账户类型">
+        <el-table-column width="70px" prop="positionType" label="账户类型">
           <template slot-scope="scope">
-            <el-tag :type="scope.row.positionType == 1?'info':'success'">{{scope.row.positionType == 1?'模拟':'实盘'}}
+            <el-tag :type="scope.row.positionType == 1 ? 'info' : 'success'">{{ scope.row.positionType == 1 ? '模拟' :
+                '实盘'
+            }}
             </el-tag>
           </template>
         </el-table-column>
-        <el-table-column
-          prop="positionSn"
-          label="持仓订单号/id">
+        <el-table-column prop="positionSn" label="持仓订单号/id">
           <template slot-scope="scope">
-          <span style="font-size:12px;color:#959595;">
-            {{scope.row.id}}
-          </span>
-            <a class="hide-td" href="javascript:;" :title="scope.row.positionSn">{{scope.row.positionSn}}</a>
-          </template>
-        </el-table-column>
-        <el-table-column
-          prop="nickName"
-          label="用户名/id">
-          <template slot-scope="scope">
-            <span>{{scope.row.nickName}}/{{scope.row.userId}}</span>
-          </template>
-        </el-table-column>
-        <el-table-column
-          prop="stockName"
-          label="股票名称">
-          <template slot-scope="scope">
-            <p>
-              <span :class="scope.row.stockPlate == '科创'?'kc-mark':'kc-mark a-mark'">{{scope.row.stockPlate == '科创'?'科创':'A股'}}</span>
-            </p>
-            <p>
-              {{scope.row.stockName}}
-              <span>
-              ({{scope.row.stockCode}})
+            <span style="font-size:12px;color:#959595;">
+              {{ scope.row.id }}
             </span>
-            </p>
+            <a class="hide-td" href="javascript:;" :title="scope.row.positionSn">{{ scope.row.positionSn }}</a>
           </template>
         </el-table-column>
-        <el-table-column
-          prop="orderDirection"
-          label="方向">
+        <el-table-column prop="nickName" label="用户名/id">
+          <template slot-scope="scope">
+            <span>{{ scope.row.nickName }}/{{ scope.row.userId }}</span>
+          </template>
+        </el-table-column>
+        <el-table-column prop="stockName" label="股票名称">
           <template slot-scope="scope">
             <p>
-              {{scope.row.orderDirection}}
-              <i v-if="scope.row.orderDirection == '买涨'" class="red iconfont icon-up"></i>
-              <i v-if="scope.row.orderDirection  == '买跌'" class="green iconfont icon-down"></i>
+              <span :class="scope.row.stockPlate == '科创' ? 'kc-mark' : 'kc-mark a-mark'">{{ scope.row.stockPlate ==
+                  '科创' ? '科创' : 'A股'
+              }}</span>
+            </p>
+            <p>
+              {{ scope.row.stockName }}
+              <span>
+                ({{ scope.row.stockCode }})
+              </span>
             </p>
           </template>
         </el-table-column>
-        <el-table-column
-          prop="buyOrderPrice"
-          label="买入价">
+        <el-table-column prop="orderDirection" label="方向">
+          <template slot-scope="scope">
+            <p>
+              {{ scope.row.orderDirection }}
+              <i v-if="scope.row.orderDirection == '买涨'" class="red iconfont icon-up"></i>
+              <i v-if="scope.row.orderDirection == '买跌'" class="green iconfont icon-down"></i>
+            </p>
+          </template>
         </el-table-column>
-        <el-table-column
-          prop="now_price"
-          label="现价">
+        <el-table-column prop="buyOrderPrice" label="买入价">
+        </el-table-column>
+        <el-table-column prop="now_price" label="现价">
           <template slot-scope="scope">
             <div v-if="scope.row.now_price"
-                 :class="changeTextClass[scope.$index] == true?'heartBeat  tab-number':' tab-number'">
+              :class="changeTextClass[scope.$index] == true ? 'heartBeat  tab-number' : ' tab-number'">
               <p
-                :class="scope.row.now_price - scope.row.buyOrderPrice < 0?'green bounceIn':scope.row.now_price - scope.row.buyOrderPrice > 0?'bounceIn red':'bounceIn'">
-                {{scope.row.now_price == 0?'-':scope.row.now_price}}
+                :class="scope.row.now_price - scope.row.buyOrderPrice < 0 ? 'green bounceIn' : scope.row.now_price - scope.row.buyOrderPrice > 0 ? 'bounceIn red' : 'bounceIn'">
+                {{ scope.row.now_price == 0 ? '-' : scope.row.now_price }}
               </p>
             </div>
           </template>
@@ -160,38 +140,38 @@
           prop="orderNum"
           label="数量">
         </el-table-column> -->
-        <el-table-column
-          prop="profitAndLose"
-          label="浮动盈亏">
+        <el-table-column prop="profitAndLose" label="浮动盈亏">
           <template slot-scope="scope">
             <div class="bounceIn tab-number">
-              <p :class="changeTextClass[scope.$index] == true?'heartBeat':''">
+              <p :class="changeTextClass[scope.$index] == true ? 'heartBeat' : ''">
                 <span v-if="scope.row.now_price == 0">-</span>
-                <span v-else :class="scope.row.profitAndLose<0?'green bounceIn':'red bounceIn'">{{scope.row.profitAndLose}}</span>
+                <span v-else :class="scope.row.profitAndLose < 0 ? 'green bounceIn' : 'red bounceIn'">{{
+                    scope.row.profitAndLose
+                }}</span>
               </p>
             </div>
 
           </template>
         </el-table-column>
-        <el-table-column
-          prop="allProfitAndLose"
-          label="总盈亏">
+        <el-table-column prop="allProfitAndLose" label="总盈亏">
           <template slot-scope="scope">
             <div class="bounceIn tab-number">
-              <p :class="changeTextClass[scope.$index] == true?'heartBeat':''">
+              <p :class="changeTextClass[scope.$index] == true ? 'heartBeat' : ''">
                 <span v-if="scope.row.now_price == 0">-</span>
-                <span v-else :class="scope.row.allProfitAndLose<0?'green bounceIn':'red bounceIn'">{{scope.row.allProfitAndLose}}</span>
+                <span v-else :class="scope.row.allProfitAndLose < 0 ? 'green bounceIn' : 'red bounceIn'">{{
+                    scope.row.allProfitAndLose
+                }}</span>
               </p>
             </div>
           </template>
         </el-table-column>
 
-        <el-table-column
-          prop="allProfitAndLose"
-          label="审核状态">
+        <el-table-column prop="allProfitAndLose" label="审核状态">
           <template slot-scope="scope">
             <div class="bounceIn tab-number">
-               {{scope.row.auditStatus == 2 ? '审核通过' : scope.row.auditStatus == 3 ? '已驳回' : scope.row.auditStatus == 0 ? '未审核' : ''}}
+              {{ scope.row.auditStatus == 2 ? '审核通过' : scope.row.auditStatus == 3 ? '已驳回' : scope.row.auditStatus == 0 ?
+                  '未审核' : ''
+              }}
             </div>
           </template>
         </el-table-column>
@@ -230,23 +210,21 @@
          </template>
        </el-table-column>
         -->
-        <el-table-column
-          fixed="right"
-          prop="isLock"
-          width="180px"
-          label="操作">
+        <el-table-column fixed="right" prop="isLock" width="180px" label="操作">
           <template slot-scope="scope">
-            <el-button type="primary" plain size="small" v-if="scope.row.auditStatus == 0" @click="getshenhe(scope.row.positionSn,2)">
+            <el-button type="primary" plain size="small" v-if="scope.row.auditStatus == 0"
+              @click="getshenhe(scope.row, 2)">
               审核通过
             </el-button>
-            <el-button type="primary" plain size="small" v-if="scope.row.auditStatus == 0" @click="getshenhe(scope.row.positionSn,3)">
+            <el-button type="primary" plain size="small" v-if="scope.row.auditStatus == 0"
+              @click="getshenhe(scope.row, 3)">
               驳回
             </el-button>
             <el-button v-if="scope.row.isLock == 0" type="primary" plain size="small" @click="positionLock(scope.row)">
               锁仓
             </el-button>
             <el-button v-if="scope.row.isLock == 1" type="primary" plain size="small"
-                       @click="positionUnLock(scope.row)">解锁
+              @click="positionUnLock(scope.row)">解锁
             </el-button>
             <!-- <el-button type="primary" plain size="small" @click="toDetail(scope.row)">查看详情</el-button> -->
             <el-button type="danger" plain size="small" @click="toSell(scope.row)">强制平仓</el-button>
@@ -254,15 +232,9 @@
         </el-table-column>
       </el-table>
       <div class="page-box">
-        <el-pagination
-          class="pull-right"
-          @size-change="handleSizeChange"
-          @current-change="handleCurrentChange"
-          :current-page="list.pageNum"
-          :page-sizes="[10, 20, 30, 40,50]"
-          :page-size="list.pageSize"
-          layout="total, sizes, prev, pager, next, jumper"
-          :total="list.total">
+        <el-pagination class="pull-right" @size-change="handleSizeChange" @current-change="handleCurrentChange"
+          :current-page="list.pageNum" :page-sizes="[10, 20, 30, 40, 50]" :page-size="list.pageSize"
+          layout="total, sizes, prev, pager, next, jumper" :total="list.total">
         </el-pagination>
       </div>
       <DetailDialog :info='detail' ref="detailDialog"></DetailDialog>
@@ -286,7 +258,7 @@ export default {
       default: 1
     }
   },
-  data () {
+  data() {
     return {
       loading: false,
       form: {
@@ -314,46 +286,71 @@ export default {
       detail: null, // 详情数据
       timer: null,
       refresh: false, // 刷新中
-      changeTextClass: {} // 表格中的数据变化
+      changeTextClass: {},
+      orderNums: '' // 表格中的数据变化
     }
   },
   watch: {},
   computed: {},
-  created () {
+  created() {
     this.timer = setInterval(this.refreshList, 5000)
   },
-  beforeDestroy () {
+  beforeDestroy() {
     clearInterval(this.timer)
   },
-  mounted () {
+  mounted() {
     this.getList()
     this.getAgentList()
   },
   methods: {
-    async getshenhe(positionSn,val){
- let opts = {
-        positionSn: positionSn,
-auditStatus:val
-      }
-      let data = await api.auditUpdate(opts)
-       if (data.status === 0) {
-        this.$message.success(data.msg)
-        this.getList()
+    getshenhe(item, val) {
+      if (val == 2) {
+        this.$prompt('请输入审核数量', '审核', {
+          confirmButtonText: '确定',
+          cancelButtonText: '取消',
+        }).then(({ value }) => {
+          if (value > item.orderNum) {
+            this.$message.error('审核数量不可大于最大持仓数' + item.orderNum)
+            return false
+          }
+          let opts = {
+            positionSn: item.positionSn,
+            auditStatus: val,
+            buyNum: value,
+          }
+          let data = api.auditUpdate(opts)
+          if (data.status === 0) {
+            this.$message.success(data.msg)
+            this.getList()
+          } else {
+            this.$message.error(data.msg)
+          }
+        })
       } else {
-        this.$message.error(data.msg)
+        let opts = {
+          positionSn: item.positionSn,
+          auditStatus: val,
+        }
+        let data = api.auditUpdate(opts)
+        if (data.status === 0) {
+          this.$message.success(data.msg)
+          this.getList()
+        } else {
+          this.$message.error(data.msg)
+        }
       }
     },
-    handleSizeChange (val) {
+    handleSizeChange(val) {
       this.form.pageSize = val
       this.getList()
       console.log(`每页 ${val} 条`)
     },
-    handleCurrentChange (val) {
+    handleCurrentChange(val) {
       this.form.pageNum = val
       console.log(`当前页: ${val}`)
       this.getList()
     },
-    async refreshList () {
+    async refreshList() {
       if (this.refresh || this.loading) {
         return
       }
@@ -389,11 +386,11 @@ auditStatus:val
         this.$message.error(data.msg)
       }
     },
-    onSubmit () {
+    onSubmit() {
       // 查询表格
       this.getList()
     },
-    async getAgentList () {
+    async getAgentList() {
       // 获取下级代理数据
       let opts = {
         pageNum: 1,
@@ -406,7 +403,7 @@ auditStatus:val
         this.$message.error(data.msg)
       }
     },
-    async getList () {
+    async getList() {
       // 获取表格数据
       let opts = {
         positionType: this.form.positionType, // 正式 0 模拟 1
@@ -428,13 +425,13 @@ auditStatus:val
         this.$message.error(data.msg)
       }
     },
-    toDetail (row) {
+    toDetail(row) {
       console.log(row)
       // 查看详情
       this.detail = row
       this.$refs.detailDialog.dialogVisible = true
     },
-    getSummaries (param) {
+    getSummaries(param) {
       // 底部计算
       const { columns, data } = param
       const sums = []
@@ -464,7 +461,7 @@ auditStatus:val
       })
       return sums
     },
-    toSell (row) {
+    toSell(row) {
       // 强制平仓
       this.$confirm('确认要强制平仓?', '提示', {
         confirmButtonText: '确定',
@@ -484,7 +481,7 @@ auditStatus:val
         })
       })
     },
-    positionLock (row) {
+    positionLock(row) {
       // 锁定
       this.$prompt('请输入锁定原因?', '提示', {
         confirmButtonText: '确定',
@@ -510,7 +507,7 @@ auditStatus:val
         })
       })
     },
-    positionUnLock (row) {
+    positionUnLock(row) {
       // 解锁
       this.$confirm('确认要解锁该持仓单?', '提示', {
         confirmButtonText: '确定',
